@@ -16,5 +16,6 @@
     "whatsapp-web.js": "^1.14.1"
   },
   "devDependencies": {},
-  "description": ""
+  "description": "",
+  "engines": { "node" : "14.17.6" }
 }
