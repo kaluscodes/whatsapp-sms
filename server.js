@@ -110,7 +110,7 @@ app.post('/whatsapp/api/sendmedia', (req,res) => {
 
  
 
-
+/*
 client.on('qr', qr => {
     qrcode.generate(qr, {small: true});
 });
@@ -120,7 +120,7 @@ client.on('ready', () => {
     client.sendMessage('2348085138481@c.us', 'Hello World');
 });
 
-/*
+
 client.on('message', message => {
 	console.log(message.body + 'from: ' + message.from);
 }); */
