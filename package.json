@@ -2,7 +2,10 @@
   "name": "whatsapp-sms",
   "version": "1.0.0",
   "main": "index.js",
-  "engines": { "node": ">14" },
+  "engines": { "node": "14.17.6", 
+             "npm": "6.14.15"
+             },
+  { "engineStrict" : true },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
