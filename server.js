@@ -8,7 +8,11 @@ app.use(express.urlencoded({
 }));
 
 const { Client } = require('whatsapp-web.js');
-const client = new Client();
+const client = new Client({
+    puppeteer: {
+        executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    }
+});
 
 const { MessageMedia } = require('whatsapp-web.js');
 
