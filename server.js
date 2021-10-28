@@ -17,9 +17,10 @@ const con = mysql.createConnection({
     database: "ojaa",
 });
 
+const wait=ms=>new Promise(resolve => setTimeout(resolve, ms));
 
 ///CALL TO AUTHENTICATION 
-app.get('/whatsapp/api/authenticate', (req,res) => {
+app.post('/whatsapp/api/authenticate', (req,res) => {
     var myqr = "";
     var x = 0;
         const { Client } = require('whatsapp-web.js');
@@ -32,16 +33,24 @@ app.get('/whatsapp/api/authenticate', (req,res) => {
         });
 
     var user = req.body.user;
-    client.on('qr', qr => {
-        if(x == 0){
-            myqr = qr;
-        }  
-   });
-    return res.send({
-        qr_code: myqr,
+    wait(7*1000).then(() => client.on('qr', qr => {  
+        if(x == 0){return res.send({
+        qr_code: qr,
         statusError: 200
+    })
+    x++
+}
+}) ); 
+
+
+    return res.send({
+        statusError: 404,
+        errorText: "something went wrong"
     });
 
+   
+
+    
             // Save session values to the file upon successful auth
 client.on('authenticated', (session) => {
     sessionData = session;
@@ -81,13 +90,13 @@ app.post('/whatsapp/api/message', (req,res) => {
     if(phone.length < 13){
         return res.status(404).send({
             statusError: 404,
-            reply: 'Phone number must have country code without special characters'
+            errorText: 'Phone number must have country code without special characters'
         });
     }
     if(message.length < 1){
         return res.status(404).send({
             statusError: 404,
-            reply: 'You must incude a message to send!'
+            errorText: 'You must incude a message to send!'
         });
     }
 
